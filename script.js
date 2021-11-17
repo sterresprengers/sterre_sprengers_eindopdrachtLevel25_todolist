@@ -1,3 +1,5 @@
+// window.addEventListener("beforeunload", function() { debugger; }, false)
+
 async function awaitGetData () {
     const fetchedData = await getData()
     console.log("Fetching worked", fetchedData)
@@ -5,6 +7,7 @@ async function awaitGetData () {
         // console.log(data.description)
         addTaskToList(data);
     });
+    // console.log("does this work?")
     // return fetchedData
 };
 awaitGetData()
@@ -44,8 +47,9 @@ const btnDeleteTask = document.querySelectorAll("#btn-del")
 btnDeleteTask.forEach(button => { // does this work or should it be an async function? 
     button.addEventListener("click", async (event) => {
         console.log("a del-button was clicked")
-        const selectedButton = await event.target.value
-        console.log(selectedButton)
+        const taskId = await event.target.value
+        console.log("the ID of clicked del-button is:", taskId)
+        deleteData(taskId)
         // here a delete-task-function with (selectedButton) as argument
     })
 })
