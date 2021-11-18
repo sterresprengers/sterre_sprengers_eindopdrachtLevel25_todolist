@@ -1,25 +1,28 @@
-// window.addEventListener("beforeunload", function() { debugger; }, false)
-
 async function awaitGetData () {
-    const fetchedData = await getData()
-    console.log("Fetching worked", fetchedData)
+    const fetchedData = await getData();
+    console.log("Fetching worked", fetchedData);
     fetchedData.map(data => {
-        // console.log(data.description)
+        // console.log(data.description);
         addTaskToList(data);
+        // console.log("status of fetchedData.done is:", fetchedData.done)
+        // const dataDone = data.done;
+        // console.log("This is dataDone:", dataDone)
+        // return dataDone
+        // activateBtnCheckbox(data);
     });
-    // console.log("does this work?")
-    // return fetchedData
+    activateBtnDel();
+    activateBtnCheckbox();
 };
-awaitGetData()
+awaitGetData();
 
-const btnAddNewTask = document.querySelector("#btn-add-new-task")
+const btnAddNewTask = document.querySelector("#btn-add-new-task");
 
 btnAddNewTask.addEventListener("click", async () => {
     console.log("add new task button was clicked");
     const data = await postData();
-    console.log("Newly created task-data is:", data)
-    addTaskToList(data)
-    return data
+    console.log("Newly created task-data is:", data);
+    addTaskToList(data);
+    return data;
 });
 
 const addTaskToList = (data) => {
@@ -29,10 +32,13 @@ const addTaskToList = (data) => {
     const btnDelete = document.createElement("button");
     const btnDelText = document.createTextNode("Delete"); // to be replaced with trash-icon
     btnDelete.appendChild(btnDelText); // to be replaced with trash-icon
-    btnDelete.setAttribute("value", data._id)
-    btnDelete.setAttribute("id", "btn-del")
+    btnDelete.setAttribute("value", data._id);
+    btnDelete.setAttribute("class", "btn-del");
+    // console.log("this is the btn-del:", btnDelete);
     const newCheckbox = document.createElement("input");
     newCheckbox.setAttribute("type", "checkbox");
+    newCheckbox.setAttribute("class", "btn-checkbox");
+    newCheckbox.setAttribute("value", data._id);
     // console.log(newCheckbox);
     const checkboxText = document.createTextNode(data.description);
     labelElement.appendChild(newCheckbox);
@@ -41,15 +47,28 @@ const addTaskToList = (data) => {
     toDoList.appendChild(labelElement);
 };
 
-const btnDeleteTask = document.querySelectorAll("#btn-del")
-// console.log(btnDeleteTask)
+const activateBtnDel = () => {
+    const btnDeleteTask = document.querySelectorAll(".btn-del");
+    console.log("These are the del-btns:", btnDeleteTask);
+    btnDeleteTask.forEach(button => { 
+        button.addEventListener("click", (event) => {
+            // console.log("a del-button was clicked");
+            const taskId = event.target.value;
+            console.log("the ID of clicked del-button is:", taskId);
+            deleteData(taskId);
+        });
+    });
+};
 
-btnDeleteTask.forEach(button => { // does this work or should it be an async function? 
-    button.addEventListener("click", async (event) => {
-        console.log("a del-button was clicked")
-        const taskId = await event.target.value
-        console.log("the ID of clicked del-button is:", taskId)
-        deleteData(taskId)
-        // here a delete-task-function with (selectedButton) as argument
+
+const activateBtnCheckbox = (data) => {
+    const btnCheckbox = document.querySelectorAll(".btn-checkbox");
+    console.log("these are the checkbox-btns:", btnCheckbox)
+    btnCheckbox.forEach(button => {
+        button.addEventListener("change", (event) => {
+            const taskId = event.target.value;
+            console.log("the ID of the changed checkbox is:", taskId)
+            putData(taskId)
+        })
     })
-})
+}
