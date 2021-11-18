@@ -11,7 +11,7 @@ async function awaitGetData () {
         // activateBtnCheckbox(data);
     });
     activateBtnDel();
-    activateBtnCheckbox();
+    // activateBtnCheckbox();
 };
 awaitGetData();
 
@@ -52,7 +52,7 @@ const activateBtnDel = () => {
     console.log("These are the del-btns:", btnDeleteTask);
     btnDeleteTask.forEach(button => { 
         button.addEventListener("click", (event) => {
-            // console.log("a del-button was clicked");
+            console.log("a del-button was clicked");
             const taskId = event.target.value;
             console.log("the ID of clicked del-button is:", taskId);
             deleteData(taskId);
@@ -61,14 +61,19 @@ const activateBtnDel = () => {
 };
 
 
-const activateBtnCheckbox = (data) => {
-    const btnCheckbox = document.querySelectorAll(".btn-checkbox");
-    console.log("these are the checkbox-btns:", btnCheckbox)
-    btnCheckbox.forEach(button => {
-        button.addEventListener("change", (event) => {
-            const taskId = event.target.value;
-            console.log("the ID of the changed checkbox is:", taskId)
-            putData(taskId)
-        })
-    })
-}
+// const activateBtnCheckbox = (data) => {
+//     const btnCheckbox = document.querySelectorAll(".btn-checkbox");
+//     console.log("these are the checkbox-btns:", btnCheckbox)
+//     btnCheckbox.forEach(button => {
+//         button.addEventListener("change", (event) => {
+//             // const checkboxText = document.querySelector(`${taskId}`);
+//             // console.log("This is the checkbox selected via change-event", checkboxText)
+//             const taskId = event.target.value;
+//             console.log("the ID of the changed checkbox is:", taskId)
+//             const connectedLabel = event.target.parentNode;
+//             console.log("Label connected to the checkbox is:", connectedLabel)
+//             // event.target.parentNode.classList.add("crossed-through");
+//             putData(taskId, connectedLabel)
+//         })
+//     })
+// }

@@ -1,0 +1,8 @@
+.crossed-through {
+    text-decoration: line-through;
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
+}
+body {
+    background-color: rgb(46, 146, 68);
+}
