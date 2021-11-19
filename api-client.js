@@ -43,18 +43,12 @@ const deleteData = async (id) => {
                 "Content-Type": "application/json",
             },
         });
-        
-        // const data = await response.json();
-        // console.log("data in deleteData is:", data);
-        // awaitGetData(data)
-        // return data;
     } catch (error) {
         console.log(error);
     };
 };
 
 const getSingleData = async (id) => {
-    // console.log("getSingleData fetch function was entered");
     const apiUrl = `http://localhost:3000/${id}`;
     try {
         const response = await fetch(apiUrl, {
@@ -78,15 +72,13 @@ const putData = async (id, connectedLabel) => {
         try {
             const setToFalse = {"done": false};
             connectedLabel.classList.remove("crossed-through")
-            const response = await fetch(apiUrl , {
+            await fetch(apiUrl , {
                 method: "PUT",
                 body: JSON.stringify(setToFalse),
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            // const data = await response.json();
-            // return data;
         } catch (error) {
             console.log(error);
         };
@@ -95,15 +87,13 @@ const putData = async (id, connectedLabel) => {
         try {
             const setToTrue = {"done": true};
             connectedLabel.classList.add("crossed-through");
-            const response = await fetch(apiUrl , {
+            await fetch(apiUrl , {
                 method: "PUT",
                 body: JSON.stringify(setToTrue),
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            // const data = await response.json();
-            // return data;
         } catch (error) {
             console.log(error);
         };
