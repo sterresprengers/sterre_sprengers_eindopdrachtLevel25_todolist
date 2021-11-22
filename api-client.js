@@ -1,5 +1,6 @@
+const apiUrl = "http://localhost:3000"
+
 const getData = async () => {
-    const apiUrl = "http://localhost:3000";
     try {
         const response = await fetch(apiUrl, { 
             method: "GET", 
@@ -15,7 +16,6 @@ const getData = async () => {
 };
 
 const postData = async function () {
-    const apiUrl = "http://localhost:3000";
     const newTaskInput = document.querySelector("#new-task-input-field");
     const newTask = {"description": `${newTaskInput.value}`, "done": false};
     newTaskInput.value= null;
@@ -35,9 +35,9 @@ const postData = async function () {
 };
 
 const deleteData = async (id) => {
-    const apiUrl = `http://localhost:3000/${id}`;
+    const apiUrlid = `${apiUrl}${id}`;
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(apiUrlid, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -49,9 +49,9 @@ const deleteData = async (id) => {
 };
 
 const getSingleData = async (id) => {
-    const apiUrl = `http://localhost:3000/${id}`;
+    const apiUrlid = `${apiUrl}${id}`;
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(apiUrlid, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -66,13 +66,13 @@ const getSingleData = async (id) => {
 };
 
 const putData = async (id, connectedLabel) => {
-    const apiUrl = `http://localhost:3000/${id}`;
+    const apiUrlid = `${apiUrl}${id}`;
     let dataDone = await getSingleData(id);
     if (dataDone == true) {
         try {
             const setToFalse = {"done": false};
             connectedLabel.classList.remove("crossed-through")
-            await fetch(apiUrl , {
+            await fetch(apiUrlid , {
                 method: "PUT",
                 body: JSON.stringify(setToFalse),
                 headers: {
@@ -87,7 +87,7 @@ const putData = async (id, connectedLabel) => {
         try {
             const setToTrue = {"done": true};
             connectedLabel.classList.add("crossed-through");
-            await fetch(apiUrl , {
+            await fetch(apiUrlid , {
                 method: "PUT",
                 body: JSON.stringify(setToTrue),
                 headers: {
